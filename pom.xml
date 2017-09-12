@@ -10,4 +10,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <modules>
+        <module>right-rate-domain-models</module>
+        <module>right-rate-wikipedia-parser-api</module>
+    </modules>
 </project>
