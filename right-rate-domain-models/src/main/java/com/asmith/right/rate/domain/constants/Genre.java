@@ -1,4 +1,4 @@
-package com.alan.right.rate.domain.constants;
+package com.asmith.right.rate.domain.constants;
 
 /**
  * @author asmith

@@ -1,4 +1,4 @@
-package com.alan.wikipedia.parser.api;
+package com.asmith.wikipedia.parser.api;
 
 /**
  * parse API for Wikipedia game listing tables

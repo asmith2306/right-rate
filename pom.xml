@@ -13,5 +13,6 @@
     <modules>
         <module>right-rate-domain-models</module>
         <module>right-rate-wikipedia-parser-api</module>
+        <module>right-rate-wikipedia-parser-impl</module>
     </modules>
 </project>
