@@ -2,3 +2,6 @@
 /right-rate-wikipedia-parser-api/target/
 /right-rate-domain-models/target/
 /right-rate-wikipedia-parser-impl/target/
+/target/
+/right-rate-web-app/target/
+/right-rate-domain-models/nbproject/
