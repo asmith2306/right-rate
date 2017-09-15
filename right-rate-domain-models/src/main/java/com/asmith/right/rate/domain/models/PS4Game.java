@@ -2,18 +2,31 @@ package com.asmith.right.rate.domain.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
  * @author asmith
  */
 @Entity
-@NamedQuery(
-        name = "findPS4GameByGenre",
-        query = "SELECT game FROM PS4Game AS game WHERE :genre MEMBER OF game.genres"
-)
+@DiscriminatorValue("PS4_GAME")
+@NamedQueries({
+    @NamedQuery(
+            name = "findPS4GamesByGenre",
+            query = "SELECT game FROM PS4Game AS game WHERE :genre MEMBER OF game.genres"
+    ),
+    @NamedQuery(
+            name = "findPS4GamesByDeveloper",
+            query = "SELECT game FROM PS4Game AS game WHERE :developer MEMBER OF game.developers"
+    ),
+    @NamedQuery(
+            name = "findPS4GamesByPublisher",
+            query = "SELECT game FROM PS4Game AS game WHERE :publisher MEMBER OF game.publishers"
+    )
+})
 public class PS4Game extends Game {
 
     @ElementCollection

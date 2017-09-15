@@ -3,6 +3,8 @@
   <persistence-unit name="com.asmith.right.rate.domain.models.jar.test.PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>com.asmith.right.rate.domain.models.PS4Game</class>
+    <class>com.asmith.right.rate.domain.models.Developer</class>
+    <class>com.asmith.right.rate.domain.models.Publisher</class>
     <properties>
       <!-- Standard JDBC Properties -->
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testDB"/>

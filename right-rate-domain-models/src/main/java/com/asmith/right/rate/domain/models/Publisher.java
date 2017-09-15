@@ -1,16 +1,30 @@
 package com.asmith.right.rate.domain.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  * @author asmith
  */
-@Embeddable
+@Entity
 public class Publisher implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
     private String url;
+
+    @ManyToMany(mappedBy = "publishers")
+    private List<Game> games;
 
     public Publisher() {
     }
@@ -18,6 +32,14 @@ public class Publisher implements Serializable {
     public Publisher(String name, String url) {
         this.name = name;
         this.url = url;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,9 +58,26 @@ public class Publisher implements Serializable {
         this.url = url;
     }
 
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
+    public void addGame(PS4Game game) {
+        if (null == this.games) {
+            this.games = new ArrayList<>();
+            this.games.add(game);
+        } else {
+            this.games.add(game);
+        }
+    }
+
     @Override
     public String toString() {
         return "Publisher{" + "name=" + name + ", url=" + url + '}';
     }
-    
+
 }

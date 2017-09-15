@@ -15,33 +15,45 @@ import org.junit.Test;
 public class PS4GameTest extends BaseTest {
 
     private PS4Game game;
+    private Developer dev;
+    private Publisher pub;
 
     @Before()
     public void setupGame() {
         game = new PS4Game();
+        dev = new Developer("Fake Dev Inc.", "www.fakedev.com");
+        pub = new Publisher("Fake Publisher Inc.", "www.fakepublisher.com");
+
         game.setName("Test Game");
-        game.addDeveloper(new Developer("Fake Dev Inc.", "www.fakedev.com"));
+        game.addDeveloper(dev);
         game.addExclusive(Exclusive.CONSOLE);
         game.addGenre(Genre.RPG);
         game.addGenre(Genre.ADVENTURE);
-        game.addPublisher(new Publisher("Fake Publisher Inc.", "www.fakepublisher.com"));
+        game.addPublisher(pub);
         game.addReleaseDate(new ReleaseDate(Region.EU, LocalDate.now()));
         game.addAddOn("VR");
+
+        dev.addGame(game);
+        pub.addGame(game);
     }
 
     @Test
     public void testPersistSuccess() {
         em.getTransaction().begin();
         em.persist(game);
+        em.persist(dev);
+        em.persist(pub);
         em.getTransaction().commit();
 
-        PS4Game gameInDb = em.find(PS4Game.class, 1L);
-       // System.out.println(gameInDb);
-
-        Query nq = em.createNamedQuery("findPS4GameByGenre");
-        nq.setParameter("genre", Genre.SCIFI);
+        Query nq = em.createNamedQuery("findPS4GamesByGenre");
+        nq.setParameter("genre", Genre.RPG);
         List<PS4Game> games = nq.getResultList();
-        System.out.println(games);
+        System.out.println("The games " + games);
+
+        nq = em.createNamedQuery("findPS4GamesByDeveloper");
+        nq.setParameter("developer", dev);
+        games = nq.getResultList();
+        System.out.println("The games " + games);
     }
 
 }

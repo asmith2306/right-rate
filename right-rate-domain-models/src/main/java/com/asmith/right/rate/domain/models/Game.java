@@ -5,37 +5,46 @@ import com.asmith.right.rate.domain.constants.Genre;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.NamedQuery;
+import javax.persistence.Inheritance;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * @author asmith
  */
-@MappedSuperclass
+@Entity
+@Inheritance
+@DiscriminatorColumn(name="GAME_TYPE")
+@Table(name="GAME")
 public abstract class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long Id;
     protected String name;
+    
     @ElementCollection
     @Enumerated(EnumType.STRING)
     protected List<Genre> genres;
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
+    
+    @ManyToMany
     protected List<Developer> developers;
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
+
+    @ManyToMany
     protected List<Publisher> publishers;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     protected List<Exclusive> exclusives;
+    
     @ElementCollection
     @Enumerated(EnumType.STRING)
     protected List<ReleaseDate> releaseDates;
