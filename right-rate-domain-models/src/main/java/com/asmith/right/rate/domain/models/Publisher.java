@@ -3,12 +3,12 @@ package com.asmith.right.rate.domain.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * @author asmith
@@ -24,7 +24,7 @@ public class Publisher implements Serializable {
     private String url;
 
     @ManyToMany(mappedBy = "publishers")
-    private List<Game> games;
+    private List<Game> games = new ArrayList<>();
 
     public Publisher() {
     }
@@ -66,13 +66,8 @@ public class Publisher implements Serializable {
         this.games = games;
     }
 
-    public void addGame(PS4Game game) {
-        if (null == this.games) {
-            this.games = new ArrayList<>();
+    public void addGame(Game game) {
             this.games.add(game);
-        } else {
-            this.games.add(game);
-        }
     }
 
     @Override

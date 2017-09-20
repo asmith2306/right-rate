@@ -8,11 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @author asmith
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "findDeveloperByName",
+            query = "Select d FROM Developer AS d WHERE d.name = :name"
+    )
+})
 public class Developer implements Serializable {
 
     @Id
@@ -23,7 +31,7 @@ public class Developer implements Serializable {
     private String url;
 
     @ManyToMany(mappedBy = "developers")
-    private List<Game> games;
+    private List<Game> games = new ArrayList<>();
 
     public Developer() {
     }
@@ -65,13 +73,8 @@ public class Developer implements Serializable {
         this.games = games;
     }
 
-    public void addGame(PS4Game game) {
-        if (null == this.games) {
-            this.games = new ArrayList<>();
-            this.games.add(game);
-        } else {
-            this.games.add(game);
-        }
+    public void addGame(Game game) {
+        this.games.add(game);
     }
 
     @Override

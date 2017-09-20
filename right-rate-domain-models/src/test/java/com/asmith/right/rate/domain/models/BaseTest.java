@@ -13,20 +13,32 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import org.junit.After;
+import org.junit.Before;
 
 public class BaseTest {
 
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
+    @Before()
+    public void beginTransaction() {
+        em.getTransaction().begin();
+    }
+
+    @After
+    public void rollbackTransaction() {
+        em.getTransaction().rollback();
+    }
+
     @BeforeClass
     public static void init() throws FileNotFoundException, SQLException {
-        emf = Persistence.createEntityManagerFactory("com.asmith.right.rate.domain.models.jar.test.PU");
+        emf = Persistence.createEntityManagerFactory("com.asmith.right.rate.domain.models.test.PU");
         em = emf.createEntityManager();
     }
 
     @AfterClass
-    public static void tearDown(){
+    public static void tearDown() {
         em.clear();
         em.close();
         emf.close();
