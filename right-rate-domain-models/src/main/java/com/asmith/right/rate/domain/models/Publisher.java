@@ -67,7 +67,7 @@ public class Publisher implements Serializable {
     }
 
     public void addGame(Game game) {
-            this.games.add(game);
+        this.games.add(game);
     }
 
     @Override

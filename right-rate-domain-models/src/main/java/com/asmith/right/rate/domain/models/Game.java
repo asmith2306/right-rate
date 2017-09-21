@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,24 +27,20 @@ import javax.persistence.NamedQuery;
     @NamedQuery(
             name = "findGamesByGenre",
             query = "SELECT g FROM Game AS g WHERE :genre MEMBER OF g.genres"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByPlatform",
             query = "SELECT g FROM Game AS g WHERE :platform MEMBER OF g.platforms"
-                    + " AND size (g.platforms) = 1"
-    )
-    ,
+            + " AND size (g.platforms) = 1"
+    ),
     @NamedQuery(
             name = "findMultiPlatGames",
             query = "SELECT g FROM Game AS g WHERE size (g.platforms) > 1"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByDeveloper",
             query = "SELECT g FROM Game AS g WHERE :developer MEMBER OF g.developers"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByPublisher",
             query = "SELECT g FROM Game AS g WHERE :publisher MEMBER OF g.publishers"
@@ -60,9 +58,19 @@ public class Game implements Serializable {
     protected List<Genre> genres = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable( // not required on many to many but useful to specify details of the join table
+            name = "GAMES_TO_DEVELOPERS",
+            joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "DEVELOPER_ID", referencedColumnName = "ID")
+    )
     protected List<Developer> developers = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable( // not required on many to many but useful to specify details of the join table
+            name = "GAMES_TO_PUBLISHERS",
+            joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "ID")
+    )
     protected List<Publisher> publishers = new ArrayList<>();
 
     @ElementCollection

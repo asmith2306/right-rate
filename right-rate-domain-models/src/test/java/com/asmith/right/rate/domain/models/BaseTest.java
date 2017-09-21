@@ -28,7 +28,7 @@ public class BaseTest {
 
     @After
     public void rollbackTransaction() {
-        em.getTransaction().rollback();
+        em.getTransaction().commit();
     }
 
     @BeforeClass

@@ -29,7 +29,7 @@ public class GameTest extends BaseTest {
         assertEquals(game.getName(), g.getName());
     }
 
-    @Test
+    //@Test
     public void testFindGamesByGenre() {
         Game horrorGame = new Game();
         Game rpgGame = new Game();
@@ -59,7 +59,7 @@ public class GameTest extends BaseTest {
         assertEquals(q.getResultList().size(), 1);
     }
 
-    @Test
+    //@Test
     public void testFindGamesByPlatform() {
         Game ps4Game1 = new Game();
         Game ps4Game2 = new Game();
@@ -99,7 +99,7 @@ public class GameTest extends BaseTest {
         assertEquals(1, q.getResultList().size());
     }
 
-    @Test
+    //@Test
     public void testFindMultiPlatGames() {
         Game ps4Game = new Game();
         Game multiplatGame1 = new Game();
