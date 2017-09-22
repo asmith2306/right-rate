@@ -39,11 +39,11 @@ import javax.persistence.NamedQuery;
     ),
     @NamedQuery(
             name = "findGamesByDeveloper",
-            query = "SELECT g FROM Game AS g WHERE :developer MEMBER OF g.developers"
+            query = "SELECT g FROM Game g JOIN g.developers d WHERE d.name = :name"
     ),
     @NamedQuery(
             name = "findGamesByPublisher",
-            query = "SELECT g FROM Game AS g WHERE :publisher MEMBER OF g.publishers"
+            query = "SELECT g FROM Game g JOIN g.publishers p WHERE p.name = :name"
     )
 })
 public class Game implements Serializable {
@@ -57,7 +57,7 @@ public class Game implements Serializable {
     @Enumerated(EnumType.STRING)
     protected List<Genre> genres = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST}) //cascade will remove the need to persist the developers manually when persisting games
     @JoinTable( // not required on many to many but useful to specify details of the join table
             name = "GAMES_TO_DEVELOPERS",
             joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
