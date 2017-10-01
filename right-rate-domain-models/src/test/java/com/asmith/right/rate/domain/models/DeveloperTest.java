@@ -5,19 +5,14 @@
  */
 package com.asmith.right.rate.domain.models;
 
-import java.util.List;
 import javax.persistence.Query;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  * @author Alan
  */
-public class DeveloperTest extends BaseTest {
+public class DeveloperTest extends TestBase {
 
     @Test
     public void testFindDeveloperByName() {

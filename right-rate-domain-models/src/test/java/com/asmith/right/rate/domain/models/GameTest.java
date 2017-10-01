@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author asmith
  */
-public class GameTest extends BaseTest {
+public class GameTest extends TestBase {
 
     // Game names that can be used in various tests
     private final String uncharted = "Uncharted";
@@ -32,11 +32,19 @@ public class GameTest extends BaseTest {
         game.addGenre(Genre.RPG);
         game.addPublisher(new Publisher("Fake Publisher", "www.fakepublisher.com"));
         game.addReleaseDate(new ReleaseDate(Region.EU, LocalDate.now()));
+        game.addReview(new Review("100", "www.fakereview.com", "FakeReviewer", "Best game ever!"));
+        game.addReview(new Review("80", "www.otherfakereview.com", "OtherFakeReviewer", "Second best game ever!"));
 
         em.persist(game);
-
+      
         Game g = em.find(Game.class, 1L);
         assertEquals(game.getName(), g.getName());
+        assertEquals(game.getReviews().size(), 2);
+        
+        game.getReviews().forEach(review -> {
+            assertNotNull(review.getGame());
+        });
+        
     }
 
     @Test

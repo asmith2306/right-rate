@@ -5,6 +5,7 @@
         <class>com.asmith.right.rate.domain.models.Game</class>
         <class>com.asmith.right.rate.domain.models.Developer</class>
         <class>com.asmith.right.rate.domain.models.Publisher</class>
+        <class>com.asmith.right.rate.domain.models.Review</class>
         <properties>
             <!-- Standard JDBC Properties -->
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/test"/>-->

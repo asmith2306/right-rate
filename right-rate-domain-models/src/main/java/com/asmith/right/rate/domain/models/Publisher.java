@@ -8,12 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @author asmith
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "findPublisherByName",
+            query = "Select p FROM Publisher AS p WHERE p.name = :name"
+    )
+})
 public class Publisher implements Serializable {
 
     @Id

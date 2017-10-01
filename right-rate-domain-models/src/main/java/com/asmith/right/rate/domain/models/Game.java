@@ -18,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  * @author asmith
@@ -27,20 +28,24 @@ import javax.persistence.NamedQuery;
     @NamedQuery(
             name = "findGamesByGenre",
             query = "SELECT g FROM Game AS g WHERE :genre MEMBER OF g.genres"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByPlatform",
             query = "SELECT g FROM Game AS g WHERE :platform MEMBER OF g.platforms"
             + " AND size (g.platforms) = 1"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findMultiPlatGames",
             query = "SELECT g FROM Game AS g WHERE size (g.platforms) > 1"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByDeveloper",
             query = "SELECT g FROM Game g JOIN g.developers d WHERE d.name = :name"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByPublisher",
             query = "SELECT g FROM Game g JOIN g.publishers p WHERE p.name = :name"
@@ -50,12 +55,12 @@ public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long Id;
-    protected String name;
+    private Long Id;
+    private String name;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    protected List<Genre> genres = new ArrayList<>();
+    private final List<Genre> genres = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST}) //cascade will remove the need to persist the developers manually when persisting games
     @JoinTable( // not required on many to many but useful to specify details of the join table
@@ -63,7 +68,7 @@ public class Game implements Serializable {
             joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "DEVELOPER_ID", referencedColumnName = "ID")
     )
-    protected List<Developer> developers = new ArrayList<>();
+    private final List<Developer> developers = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable( // not required on many to many but useful to specify details of the join table
@@ -71,15 +76,18 @@ public class Game implements Serializable {
             joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "ID")
     )
-    protected List<Publisher> publishers = new ArrayList<>();
+    private final List<Publisher> publishers = new ArrayList<>();
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    protected List<Platform> platforms = new ArrayList<>();
+    private final List<Platform> platforms = new ArrayList<>();
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    protected List<ReleaseDate> releaseDates = new ArrayList<>();
+    private final List<ReleaseDate> releaseDates = new ArrayList<>();
+
+    @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST})
+    private final List<Review> reviews = new ArrayList<>();
 
     public Long getId() {
         return Id;
@@ -137,6 +145,15 @@ public class Game implements Serializable {
 
     public void addReleaseDate(ReleaseDate releaseDate) {
         this.releaseDates.add(releaseDate);
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+        review.setGame(this);
     }
 
     @Override

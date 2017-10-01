@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
 
-public class BaseTest {
+public class TestBase {
 
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
