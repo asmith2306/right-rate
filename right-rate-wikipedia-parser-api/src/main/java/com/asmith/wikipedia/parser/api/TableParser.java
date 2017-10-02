@@ -1,16 +1,19 @@
 package com.asmith.wikipedia.parser.api;
 
 import java.util.List;
-import org.jsoup.select.Elements;
 
 /**
- * parse API for Wikipedia listing tables e.g.
- * https://en.wikipedia.org/wiki/List_of_PlayStation_4_games
+ * parse API for Wikipedia tables
  *
  * @author asmith
  * @param <T> type to return
  */
 public interface TableParser<T> {
+    
+    /**
+     * Parse the tables
+     * @return 
+     */
+    public List<T> parseTables();
 
-   public List<T> parseTable(Elements rows);
 }
