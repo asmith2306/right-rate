@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service("ps4")
 public class PS4GameListParser extends AbstractWikipediaTableParser<Game> {
 
-    @Value("${ps4.game.list.urls}")
+    @Value("${wikipedia.ps4.game.list.urls}")
     private String tableUrls;
 
-    @Value("${ps4.game.list.id}")
+    @Value("${wikipedia.ps4.game.list.id}")
     private String tableId;
 
     @Override
@@ -31,15 +31,15 @@ public class PS4GameListParser extends AbstractWikipediaTableParser<Game> {
 
             if (null != table) {
                 Elements rows = table.select("tr");
-                for (int i = 2; i < rows.size(); i++){ //first two rows contain headers so skip
-                    System.out.print(rows.get(i));
+                for (int i = 2; i < rows.size(); i++) { //first two rows contain headers so skip
+                    if (rows.get(i).select("td:nth-child(1) > i > a").hasAttr("href")) {
+                        System.out.println(rows.get(i).select("td:nth-child(1) > i > a"));
+                    }
                 }
-                
-                
-            }
 
+            }
         }
-        
+
         return games;
     }
 

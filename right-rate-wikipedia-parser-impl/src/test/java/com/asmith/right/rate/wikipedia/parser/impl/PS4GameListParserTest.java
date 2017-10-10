@@ -28,7 +28,6 @@ public class PS4GameListParserTest {
      */
     @Test
     public void testParseTables() {
-
         instance.parseTables();
     }
 
