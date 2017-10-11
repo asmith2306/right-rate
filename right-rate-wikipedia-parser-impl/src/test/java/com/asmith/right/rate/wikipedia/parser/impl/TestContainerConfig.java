@@ -11,5 +11,5 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = {"com.asmith.right.rate.wikipedia.parser.impl"})
+@ComponentScan(basePackages = {"com.asmith.right.rate.wikipedia"}) // scans all packages under the declared package
 public class TestContainerConfig {}

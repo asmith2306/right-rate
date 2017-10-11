@@ -28,24 +28,20 @@ import javax.persistence.OneToMany;
     @NamedQuery(
             name = "findGamesByGenre",
             query = "SELECT g FROM Game AS g WHERE :genre MEMBER OF g.genres"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByPlatform",
             query = "SELECT g FROM Game AS g WHERE :platform MEMBER OF g.platforms"
             + " AND size (g.platforms) = 1"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findMultiPlatGames",
             query = "SELECT g FROM Game AS g WHERE size (g.platforms) > 1"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByDeveloper",
             query = "SELECT g FROM Game g JOIN g.developers d WHERE d.name = :name"
-    )
-    ,
+    ),
     @NamedQuery(
             name = "findGamesByPublisher",
             query = "SELECT g FROM Game g JOIN g.publishers p WHERE p.name = :name"
@@ -60,7 +56,7 @@ public class Game implements Serializable {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private final List<Genre> genres = new ArrayList<>();
+    private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST}) //cascade will remove the need to persist the developers manually when persisting games
     @JoinTable( // not required on many to many but useful to specify details of the join table
@@ -107,6 +103,10 @@ public class Game implements Serializable {
 
     public List<Genre> getGenres() {
         return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public void addGenre(Genre genre) {

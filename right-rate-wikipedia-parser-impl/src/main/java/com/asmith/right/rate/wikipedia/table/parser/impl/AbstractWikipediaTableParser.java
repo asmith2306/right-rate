@@ -1,4 +1,4 @@
-package com.asmith.right.rate.wikipedia.parser.impl;
+package com.asmith.right.rate.wikipedia.table.parser.impl;
 
 import com.asmith.wikipedia.parser.api.TableParser;
 import java.io.IOException;
