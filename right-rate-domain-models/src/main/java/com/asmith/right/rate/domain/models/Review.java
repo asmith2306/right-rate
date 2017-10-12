@@ -26,6 +26,9 @@ public class Review implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Game game;
 
+    public Review() {
+    }
+
     public Review(String score, String url, String reviewer, String snippet) {
         this.score = score;
         this.url = url;

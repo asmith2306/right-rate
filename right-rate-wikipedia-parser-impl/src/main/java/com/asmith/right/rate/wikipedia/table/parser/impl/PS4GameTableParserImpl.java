@@ -1,21 +1,17 @@
 package com.asmith.right.rate.wikipedia.table.parser.impl;
 
-import com.asmith.right.rate.domain.constants.Genre;
 import com.asmith.right.rate.domain.models.Game;
-import com.asmith.wikipedia.parser.api.ValueParser;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
  * @author asmith
  */
-@Service("ps4")
+@Service("ps4GameTableParser")
 public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
 
     @Value("${wikipedia.ps4.game.list.urls}")
@@ -24,13 +20,10 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
     @Value("${wikipedia.ps4.game.list.id}")
     private String tableId;
 
-    @Autowired
-    ValueParser<List<Genre>> genreParser;
-
     @Override
     public List<Game> parseTables() {
 
-        List<Game> games = new ArrayList<>();
+        List<Game> gamesToReturn = new ArrayList<>();
         Game currentGame;
         Element currentRow;
         Element table;
@@ -48,15 +41,40 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
 
                         currentGame = new Game();
                         currentGame.setName(currentRow.select("td:nth-child(1) > i > a").text());
-                        currentGame.setGenres(genreParser.parseValue(currentRow.select("td:nth-child(2)").text()));
-
                         System.out.println(currentGame.getName());
-                        currentGame.getGenres().forEach(genre->{
-                            System.out.println(genre);
+
+                        //add genres
+                        if (currentGame.setGenres(genreParser.parseValue(currentRow.select("td:nth-child(2)").text())).isEmpty()) {
+                            continue; // not interested in games that fall outside the supported genres
+                        }
+                        currentGame.getGenres().forEach(genre -> {
+                            System.out.println(genre.getDescription());
                         });
-                        
-                        
-                        
+
+                        //add devs
+                        if (currentGame.setDevelopers(developerParser.parseValue(currentRow.select("td:nth-child(3)").text())).isEmpty()) {
+                            continue; // not interested in games that have no developers
+                        }
+                        currentGame.getDevelopers().forEach(dev -> {
+                            System.out.println(dev.getName());
+                        });
+
+                        //add publishers
+                        if (currentGame.setPublishers(publisherParser.parseValue(currentRow.select("td:nth-child(4)").text())).isEmpty()) {
+                            continue; // not interested in games that have no publishers
+                        }
+                        currentGame.getPublishers().forEach(pub -> {
+                            System.out.println(pub.getName());
+                        });
+
+                        //add exclusivity
+                        if (currentGame.setExclusivity(currentRow.select("td:nth-child(4)").text())) {
+                            continue; // not interested in games that have no publishers
+                        }
+                        currentGame.getPublishers().forEach(pub -> {
+                            System.out.println(pub.getName());
+                        });
+
 //                        System.out.println(currentRow.select("td:nth-child(1)"));
 //                        System.out.println(currentRow.select("td:nth-child(2)"));
 //                        System.out.println(currentRow.select("td:nth-child(3)"));
@@ -74,7 +92,7 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
             }
         }
 
-        return games;
+        return gamesToReturn;
     }
 
 }

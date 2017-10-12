@@ -1,7 +1,7 @@
 package com.asmith.right.rate.domain.models;
 
-import com.asmith.right.rate.domain.constants.Platform;
 import com.asmith.right.rate.domain.constants.Genre;
+import com.asmith.right.rate.domain.constants.Xclusivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,8 @@ import javax.persistence.OneToMany;
             query = "SELECT g FROM Game AS g WHERE :genre MEMBER OF g.genres"
     ),
     @NamedQuery(
-            name = "findGamesByPlatform",
-            query = "SELECT g FROM Game AS g WHERE :platform MEMBER OF g.platforms"
-            + " AND size (g.platforms) = 1"
-    ),
-    @NamedQuery(
-            name = "findMultiPlatGames",
-            query = "SELECT g FROM Game AS g WHERE size (g.platforms) > 1"
+            name = "findGamesByExclusivity",
+            query = "SELECT g FROM Game AS g WHERE g.exclusivity = :exclusivity"
     ),
     @NamedQuery(
             name = "findGamesByDeveloper",
@@ -59,31 +54,30 @@ public class Game implements Serializable {
     private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST}) //cascade will remove the need to persist the developers manually when persisting games
-    @JoinTable( // not required on many to many but useful to specify details of the join table
+    @JoinTable( // required on many to many in inheritance scenarios, but useful to specify details of the join table anyways if not
             name = "GAMES_TO_DEVELOPERS",
             joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "DEVELOPER_ID", referencedColumnName = "ID")
     )
-    private final List<Developer> developers = new ArrayList<>();
+    private List<Developer> developers = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
-    @JoinTable( // not required on many to many but useful to specify details of the join table
+    @JoinTable( // required on many to many in inheritance scenarios, but useful to specify details of the join table anyways if not
             name = "GAMES_TO_PUBLISHERS",
             joinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "ID")
     )
-    private final List<Publisher> publishers = new ArrayList<>();
+    private List<Publisher> publishers = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Xclusivity exclusivity;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private final List<Platform> platforms = new ArrayList<>();
-
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
-    private final List<ReleaseDate> releaseDates = new ArrayList<>();
+    private List<ReleaseDate> releaseDates = new ArrayList<>();
 
     @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST})
-    private final List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public Long getId() {
         return Id;
@@ -105,8 +99,9 @@ public class Game implements Serializable {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public List<Genre> setGenres(List<Genre> genres) {
         this.genres = genres;
+        return this.genres;
     }
 
     public void addGenre(Genre genre) {
@@ -115,6 +110,11 @@ public class Game implements Serializable {
 
     public List<Developer> getDevelopers() {
         return developers;
+    }
+
+    public List<Developer> setDevelopers(List<Developer> developers) {
+        this.developers = developers;
+        return this.developers;
     }
 
     public void addDeveloper(Developer developer) {
@@ -126,17 +126,22 @@ public class Game implements Serializable {
         return publishers;
     }
 
+    public List<Publisher> setPublishers(List<Publisher> publishers) {
+        this.publishers = publishers;
+        return this.publishers;
+    }
+
     public void addPublisher(Publisher publisher) {
         this.publishers.add(publisher);
         publisher.addGame(this);
     }
 
-    public List<Platform> getPlatforms() {
-        return platforms;
+    public Xclusivity getExclusivity() {
+        return exclusivity;
     }
 
-    public void addPlatform(Platform platform) {
-        this.platforms.add(platform);
+    public void setExclusivity(Xclusivity exclusivity) {
+        this.exclusivity = exclusivity;
     }
 
     public List<ReleaseDate> getReleaseDates() {
@@ -158,7 +163,7 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-        return "Game{" + "Id=" + Id + ", name=" + name + ", genres=" + genres + ", developers=" + developers + ", publishers=" + publishers + ", platforms=" + platforms + ", releaseDates=" + releaseDates + '}';
+        return "Game{" + "Id=" + Id + ", name=" + name + ", genres=" + genres + ", developers=" + developers + ", publishers=" + publishers + ", exclusivity=" + exclusivity + ", releaseDates=" + releaseDates + '}';
     }
 
 }

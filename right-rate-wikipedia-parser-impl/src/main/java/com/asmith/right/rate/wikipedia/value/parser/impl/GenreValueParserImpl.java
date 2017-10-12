@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service
-public class GenreVauleParserImpl implements ValueParser<List<Genre>> {
+@Service("genreValueParser")
+public class GenreValueParserImpl implements ValueParser<Genre> {
 
     @Override
     public List<Genre> parseValue(String value) {
