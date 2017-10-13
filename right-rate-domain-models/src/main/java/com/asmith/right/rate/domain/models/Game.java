@@ -148,6 +148,10 @@ public class Game implements Serializable {
         return releaseDates;
     }
 
+    public void setReleaseDates(List<ReleaseDate> releaseDates) {
+        this.releaseDates = releaseDates;
+    }
+    
     public void addReleaseDate(ReleaseDate releaseDate) {
         this.releaseDates.add(releaseDate);
     }

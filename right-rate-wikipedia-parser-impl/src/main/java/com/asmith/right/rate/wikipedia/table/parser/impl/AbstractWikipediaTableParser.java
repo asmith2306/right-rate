@@ -1,13 +1,9 @@
 package com.asmith.right.rate.wikipedia.table.parser.impl;
 
-import com.asmith.right.rate.domain.constants.Genre;
-import com.asmith.right.rate.domain.models.Creator;
-import com.asmith.right.rate.domain.models.Developer;
-import com.asmith.right.rate.domain.models.Publisher;
 import com.asmith.wikipedia.parser.api.TableParser;
-import com.asmith.wikipedia.parser.api.ValueParser;
+import com.asmith.wikipedia.parser.api.MultiValueParser;
+import com.asmith.wikipedia.parser.api.ReleaseDateParser;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,20 +23,19 @@ public abstract class AbstractWikipediaTableParser<T> implements TableParser<T> 
     protected String wikipediaBaseUrl;
 
     @Autowired
-    @Qualifier(value = "genreValueParser")
-    protected ValueParser genreParser;
+    @Qualifier(value = "genreValueParserImpl")
+    protected MultiValueParser genreParser;
 
     @Autowired
-    @Qualifier(value = "developerValueParser")
-    protected ValueParser developerParser;
+    @Qualifier(value = "developerValueParserImpl")
+    protected MultiValueParser developerParser;
 
     @Autowired
-    @Qualifier(value = "publisherValueParser")
-    protected ValueParser publisherParser;
+    @Qualifier(value = "publisherValueParserImpl")
+    protected MultiValueParser publisherParser;
 
     @Autowired
-    @Qualifier(value = "platformParser")
-    protected ValueParser platformParser;
+    protected ReleaseDateParser releaseDateParser;
 
     public Element getTable(String tablePage, String tableId) {
         try {

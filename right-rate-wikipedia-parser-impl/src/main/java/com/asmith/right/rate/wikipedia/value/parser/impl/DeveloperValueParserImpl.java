@@ -1,7 +1,7 @@
 package com.asmith.right.rate.wikipedia.value.parser.impl;
 
 import com.asmith.right.rate.domain.models.Developer;
-import com.asmith.wikipedia.parser.api.ValueParser;
+import com.asmith.wikipedia.parser.api.MultiValueParser;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service("developerValueParser")
-public class DeveloperValueParserImpl implements ValueParser<Developer> {
+@Service("developerValueParserImpl")
+public class DeveloperValueParserImpl implements MultiValueParser<Developer> {
 
     @Override
     public List<Developer> parseValue(String value) {

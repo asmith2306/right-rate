@@ -32,7 +32,7 @@ public class GameTest extends TestBase {
         game.addGenre(Genre.ACTION);
         game.addDeveloper(new Developer("Fake Dev", "www.fakedev.com"));
         game.addPublisher(new Publisher("Fake Publisher", "www.fakepublisher.com"));
-        game.addReleaseDate(new ReleaseDate(Region.EU, LocalDate.now()));
+        game.addReleaseDate(new ReleaseDate(Region.EU, "June 23, 1985"));
         game.addReview(new Review("100", "www.fakereview.com", "FakeReviewer", "Best game ever!"));
         game.addReview(new Review("80", "www.otherfakereview.com", "OtherFakeReviewer", "Second best game ever!"));
 

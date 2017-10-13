@@ -15,14 +15,14 @@ public class ReleaseDate implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Region region;
-    private LocalDate releaseDate;
+    private String date;
 
     public ReleaseDate() {
     }
 
-    public ReleaseDate(Region region, LocalDate releaseDate) {
+    public ReleaseDate(Region region, String date) {
         this.region = region;
-        this.releaseDate = releaseDate;
+        this.date = date;
     }
 
     public Region getRegion() {
@@ -33,17 +33,17 @@ public class ReleaseDate implements Serializable {
         this.region = region;
     }
 
-    public LocalDate getDate() {
-        return releaseDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.releaseDate = date;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "ReleaseDate{" + "region=" + region + ", releaseDate=" + releaseDate + '}';
+        return "ReleaseDate{" + "region=" + region + ", date=" + date + '}';
     }
 
 }

@@ -4,9 +4,8 @@ import java.util.List;
 
 /**
  * @author asmith
- * @param <T>
  */
-public interface ValueParser<T> {
+public interface MultiValueParser<T> {
 
     public List<T> parseValue(String value);
 

@@ -1,10 +1,16 @@
 package com.asmith.right.rate.wikipedia.table.parser.impl;
 
+import com.asmith.right.rate.domain.constants.Region;
+import com.asmith.right.rate.domain.constants.Xclusivity;
 import com.asmith.right.rate.domain.models.Game;
+import com.asmith.right.rate.domain.models.ReleaseDate;
+import com.asmith.wikipedia.parser.api.XclusivityParser;
 import java.util.ArrayList;
 import java.util.List;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +25,10 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
 
     @Value("${wikipedia.ps4.game.list.id}")
     private String tableId;
+
+    @Autowired
+    @Qualifier(value = "ps4XclusivityValueParserImpl")
+    private XclusivityParser ps4XclusivityParser;
 
     @Override
     public List<Game> parseTables() {
@@ -68,13 +78,16 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
                         });
 
                         //add exclusivity
-                        if (currentGame.setExclusivity(currentRow.select("td:nth-child(4)").text())) {
-                            continue; // not interested in games that have no publishers
-                        }
-                        currentGame.getPublishers().forEach(pub -> {
-                            System.out.println(pub.getName());
-                        });
+                        currentGame.setExclusivity((Xclusivity) ps4XclusivityParser.parseExclusivity(currentRow.select("td:nth-child(5)").text()));
+                        System.out.println(currentGame.getExclusivity().getDescription());
 
+                        currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(6)"), Region.JP));
+                        currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(7)"), Region.EU));
+                        currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(8)"), Region.NA));
+                         currentGame.getReleaseDates().forEach(release -> {
+                            System.out.println(release);
+                        });
+                        
 //                        System.out.println(currentRow.select("td:nth-child(1)"));
 //                        System.out.println(currentRow.select("td:nth-child(2)"));
 //                        System.out.println(currentRow.select("td:nth-child(3)"));
