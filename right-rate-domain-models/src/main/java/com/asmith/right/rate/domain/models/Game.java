@@ -1,5 +1,6 @@
 package com.asmith.right.rate.domain.models;
 
+import com.asmith.right.rate.domain.constants.Addon;
 import com.asmith.right.rate.domain.constants.Genre;
 import com.asmith.right.rate.domain.constants.Xclusivity;
 import java.io.Serializable;
@@ -79,6 +80,10 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST})
     private List<Review> reviews = new ArrayList<>();
 
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<Addon> addOns = new ArrayList<>();
+
     public Long getId() {
         return Id;
     }
@@ -151,7 +156,7 @@ public class Game implements Serializable {
     public void setReleaseDates(List<ReleaseDate> releaseDates) {
         this.releaseDates = releaseDates;
     }
-    
+
     public void addReleaseDate(ReleaseDate releaseDate) {
         this.releaseDates.add(releaseDate);
     }
@@ -163,6 +168,18 @@ public class Game implements Serializable {
     public void addReview(Review review) {
         this.reviews.add(review);
         review.setGame(this);
+    }
+
+    public List<Addon> getAddOns() {
+        return addOns;
+    }
+
+    public void setAddOns(List<Addon> addOns) {
+        this.addOns = addOns;
+    }
+
+    public void addAddon(Addon addon) {
+        this.addOns.add(addon);
     }
 
     @Override

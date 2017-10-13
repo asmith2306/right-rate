@@ -84,10 +84,11 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
                         currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(6)"), Region.JP));
                         currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(7)"), Region.EU));
                         currentGame.addReleaseDate((ReleaseDate) releaseDateParser.parseValue(currentRow.select("td:nth-child(8)"), Region.NA));
-                         currentGame.getReleaseDates().forEach(release -> {
+                        currentGame.getReleaseDates().forEach(release -> {
                             System.out.println(release);
                         });
-                        
+                        currentGame.setAddOns(addOnValueParser.parseValue(currentRow.select("td:nth-child(9)").text()));
+
 //                        System.out.println(currentRow.select("td:nth-child(1)"));
 //                        System.out.println(currentRow.select("td:nth-child(2)"));
 //                        System.out.println(currentRow.select("td:nth-child(3)"));

@@ -37,6 +37,10 @@ public abstract class AbstractWikipediaTableParser<T> implements TableParser<T> 
     @Autowired
     protected ReleaseDateParser releaseDateParser;
 
+    @Autowired
+    @Qualifier(value = "addOnValueParserImpl")
+    protected MultiValueParser addOnValueParser;
+
     public Element getTable(String tablePage, String tableId) {
         try {
             return Jsoup.connect(tablePage).maxBodySize(0).get().getElementById(tableId);
