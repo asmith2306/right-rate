@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service("publisherValueParserImpl")
-public class PublisherValueParserImpl implements MultiValueParser<Publisher> {
+@Service("publisherValueParser")
+public class PublisherValueParser implements MultiValueParser<Publisher> {
 
     @Override
     public List<Publisher> parseValue(String value) {

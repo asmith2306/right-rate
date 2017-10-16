@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service("developerValueParserImpl")
-public class DeveloperValueParserImpl implements MultiValueParser<Developer> {
+@Service("developerValueParser")
+public class DeveloperValueParser implements MultiValueParser<Developer> {
 
     @Override
     public List<Developer> parseValue(String value) {

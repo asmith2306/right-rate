@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @author asmith
  */
 @Service("ps4GameTableParser")
-public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
+public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
 
     @Value("${wikipedia.ps4.game.list.urls}")
     private String tableUrls;
@@ -27,7 +27,7 @@ public class PS4GameTableParserImpl extends AbstractWikipediaTableParser<Game> {
     private String tableId;
 
     @Autowired
-    @Qualifier(value = "ps4XclusivityValueParserImpl")
+    @Qualifier(value = "ps4XclusivityValueParser")
     private XclusivityParser ps4XclusivityParser;
 
     @Override

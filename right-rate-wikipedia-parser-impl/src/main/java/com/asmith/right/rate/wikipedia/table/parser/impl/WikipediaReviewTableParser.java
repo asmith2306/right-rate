@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service("reviewTableParser")
-public class ReviewTableParserImpl extends AbstractWikipediaTableParser<Review>{
+@Service("wikipediaReviewTableParser")
+public class WikipediaReviewTableParser extends AbstractWikipediaTableParser<Review>{
 
     @Override
     public List<Review> parseTables() {

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author asmith
  */
-@Service("ps4XclusivityValueParserImpl")
-public class PS4XclusivityValueParserImpl implements XclusivityParser<Xclusivity> {
+@Service("ps4XclusivityValueParser")
+public class PS4XclusivityValueParser implements XclusivityParser<Xclusivity> {
 
     private Map<String, Xclusivity> mappings;
 

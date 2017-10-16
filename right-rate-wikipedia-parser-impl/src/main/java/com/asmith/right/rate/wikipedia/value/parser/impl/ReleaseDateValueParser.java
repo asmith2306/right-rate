@@ -3,7 +3,6 @@ package com.asmith.right.rate.wikipedia.value.parser.impl;
 import com.asmith.right.rate.domain.constants.Region;
 import com.asmith.right.rate.domain.models.ReleaseDate;
 import com.asmith.wikipedia.parser.api.ReleaseDateParser;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author asmith
  */
 @Service
-public class ReleaseDateValueParserImpl implements ReleaseDateParser<ReleaseDate, Elements, Region> {
+public class ReleaseDateValueParser implements ReleaseDateParser<ReleaseDate, Elements, Region> {
 
     @Override
     public ReleaseDate parseValue(Elements elements, Region region) {

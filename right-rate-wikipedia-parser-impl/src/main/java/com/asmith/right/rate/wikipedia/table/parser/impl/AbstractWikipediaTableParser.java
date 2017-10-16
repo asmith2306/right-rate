@@ -23,22 +23,22 @@ public abstract class AbstractWikipediaTableParser<T> implements TableParser<T> 
     protected String wikipediaBaseUrl;
 
     @Autowired
-    @Qualifier(value = "genreValueParserImpl")
+    @Qualifier(value = "genreValueParser")
     protected MultiValueParser genreParser;
 
     @Autowired
-    @Qualifier(value = "developerValueParserImpl")
+    @Qualifier(value = "developerValueParser")
     protected MultiValueParser developerParser;
 
     @Autowired
-    @Qualifier(value = "publisherValueParserImpl")
+    @Qualifier(value = "publisherValueParser")
     protected MultiValueParser publisherParser;
 
     @Autowired
     protected ReleaseDateParser releaseDateParser;
 
     @Autowired
-    @Qualifier(value = "addOnValueParserImpl")
+    @Qualifier(value = "addOnValueParser")
     protected MultiValueParser addOnValueParser;
 
     public Element getTable(String tablePage, String tableId) {
