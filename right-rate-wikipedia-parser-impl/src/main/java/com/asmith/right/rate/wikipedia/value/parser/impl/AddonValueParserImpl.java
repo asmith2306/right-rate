@@ -14,13 +14,10 @@ public class AddonValueParserImpl implements MultiValueParser<Addon> {
 
     @Override
     public List<Addon> parseValue(String value) {
-        System.out.println(value.replaceAll("\\s+",""));
-        
+        String s = value.replaceAll("\\s+","");
+        System.out.println(s);
         List<Addon> addonsToReturn = new ArrayList<>();
-        String[] split = value.split("");
-        for (String s : split) {
-            System.out.println(s.trim());
-        }
+       
         return addonsToReturn;
     }
 
