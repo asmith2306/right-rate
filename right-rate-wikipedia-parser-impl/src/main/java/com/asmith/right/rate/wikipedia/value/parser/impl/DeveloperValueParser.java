@@ -21,7 +21,7 @@ public class DeveloperValueParser implements MultiValueParser<Developer> {
 
         for (String dev : receivedDevelopers) {
             d = new Developer();
-            d.setName(dev);
+            d.setName(dev.trim());
             developersToReturn.add(d);
         }
 

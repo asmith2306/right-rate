@@ -47,9 +47,9 @@ public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
                 for (int i = 2; i < rows.size(); i++) { //first two rows contain headers so skip
                     currentRow = rows.get(i);
                     if (currentRow.select("td:nth-child(1) > i > a").hasAttr("href")) { // only use games that have a link to a wiki page
+                        currentGame = new Game();
                         currentGameHref = currentRow.select("td:nth-child(1) > i > a").attr("abs:href");
 
-                        currentGame = new Game();
                         currentGame.setName(currentRow.select("td:nth-child(1) > i > a").text());
                         System.out.println(currentGame.getName());
 
@@ -87,8 +87,12 @@ public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
                         currentGame.getReleaseDates().forEach(release -> {
                             System.out.println(release);
                         });
-                        currentGame.setAddOns(addOnValueParser.parseValue(currentRow.select("td:nth-child(9)").text()));
 
+                        //add add ons
+                        currentGame.setAddOns(addOnValueParser.parseValue(currentRow.select("td:nth-child(9)").text()));
+                        currentGame.getAddOns().forEach(addOn -> {
+                            System.out.println(addOn.getDescription());
+                        });
 //                        System.out.println(currentRow.select("td:nth-child(1)"));
 //                        System.out.println(currentRow.select("td:nth-child(2)"));
 //                        System.out.println(currentRow.select("td:nth-child(3)"));

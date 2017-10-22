@@ -1,6 +1,6 @@
 package com.asmith.right.rate.domain.models;
 
-import com.asmith.right.rate.domain.constants.Addon;
+import com.asmith.right.rate.domain.constants.AddOn;
 import com.asmith.right.rate.domain.constants.Genre;
 import com.asmith.right.rate.domain.constants.Xclusivity;
 import java.io.Serializable;
@@ -29,15 +29,18 @@ import javax.persistence.OneToMany;
     @NamedQuery(
             name = "findGamesByGenre",
             query = "SELECT g FROM Game AS g WHERE :genre MEMBER OF g.genres"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByExclusivity",
             query = "SELECT g FROM Game AS g WHERE g.exclusivity = :exclusivity"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByDeveloper",
             query = "SELECT g FROM Game g JOIN g.developers d WHERE d.name = :name"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "findGamesByPublisher",
             query = "SELECT g FROM Game g JOIN g.publishers p WHERE p.name = :name"
@@ -82,7 +85,7 @@ public class Game implements Serializable {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private List<Addon> addOns = new ArrayList<>();
+    private List<AddOn> addOns = new ArrayList<>();
 
     public Long getId() {
         return Id;
@@ -165,20 +168,24 @@ public class Game implements Serializable {
         return reviews;
     }
 
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public void addReview(Review review) {
         this.reviews.add(review);
         review.setGame(this);
     }
 
-    public List<Addon> getAddOns() {
+    public List<AddOn> getAddOns() {
         return addOns;
     }
 
-    public void setAddOns(List<Addon> addOns) {
+    public void setAddOns(List<AddOn> addOns) {
         this.addOns = addOns;
     }
 
-    public void addAddon(Addon addon) {
+    public void addAddOn(AddOn addon) {
         this.addOns.add(addon);
     }
 

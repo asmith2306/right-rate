@@ -19,9 +19,9 @@ public class PublisherValueParser implements MultiValueParser<Publisher> {
 
         Publisher p;
 
-        for (String dev : receivedPublishers) {
+        for (String pub : receivedPublishers) {
             p = new Publisher();
-            p.setName(dev);
+            p.setName(pub.trim());
             publishersToReturn.add(p);
         }
 

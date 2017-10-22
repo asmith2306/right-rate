@@ -1,10 +1,9 @@
 package com.asmith.right.rate.domain.models;
 
-import com.asmith.right.rate.domain.constants.Addon;
+import com.asmith.right.rate.domain.constants.AddOn;
 import com.asmith.right.rate.domain.constants.Xclusivity;
 import com.asmith.right.rate.domain.constants.Genre;
 import com.asmith.right.rate.domain.constants.Region;
-import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Query;
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class GameTest extends TestBase {
         game.addReleaseDate(new ReleaseDate(Region.EU, "June 23, 1985"));
         game.addReview(new Review("100", "www.fakereview.com", "FakeReviewer", "Best game ever!"));
         game.addReview(new Review("80", "www.otherfakereview.com", "OtherFakeReviewer", "Second best game ever!"));
-        game.addAddon(Addon.HDR);
+        game.addAddOn(AddOn.HDR);
         em.persist(game);
 
         Game g = em.find(Game.class, 1L);

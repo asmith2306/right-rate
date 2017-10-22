@@ -1,5 +1,6 @@
 package com.asmith.right.rate.wikipedia.table.parser.impl;
 
+import com.asmith.right.rate.domain.constants.Genre;
 import com.asmith.wikipedia.parser.api.TableParser;
 import com.asmith.wikipedia.parser.api.MultiValueParser;
 import com.asmith.wikipedia.parser.api.ReleaseDateParser;
@@ -23,8 +24,8 @@ public abstract class AbstractWikipediaTableParser<T> implements TableParser<T> 
     protected String wikipediaBaseUrl;
 
     @Autowired
-    @Qualifier(value = "genreValueParser")
-    protected MultiValueParser genreParser;
+//    @Qualifier(value = "genreValueParser")
+    protected MultiValueParser<Genre> genreParser;
 
     @Autowired
     @Qualifier(value = "developerValueParser")
