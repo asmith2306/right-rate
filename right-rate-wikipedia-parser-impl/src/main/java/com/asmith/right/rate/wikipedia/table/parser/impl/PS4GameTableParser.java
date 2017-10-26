@@ -5,8 +5,10 @@ import com.asmith.right.rate.domain.constants.Xclusivity;
 import com.asmith.right.rate.domain.models.Game;
 import com.asmith.right.rate.domain.models.ReleaseDate;
 import com.asmith.wikipedia.parser.api.XclusivityParser;
+import com.asmith.wikipedia.parser.api.params.TableDetails;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @author asmith
  */
 @Service("ps4GameTableParser")
-public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
+public class PS4GameTableParser extends AbstractGameTableParser<Game> {
 
     @Value("${wikipedia.ps4.game.list.urls}")
     private String tableUrls;
@@ -36,19 +38,20 @@ public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
         List<Game> gamesToReturn = new ArrayList<>();
         Game currentGame;
         Element currentRow;
-        Element table;
+        Element gameTable;
         String currentGameHref;
 
         for (String tablePage : tableUrls.split(",")) {
-            table = super.getTable(tablePage, tableId);
+            gameTable = tableRetriever.getTableById(new TableDetails(tablePage,null, tableId));
 
-            if (null != table) {
-                Elements rows = table.select("tr");
+            if (null != gameTable) {
+                Elements rows = gameTable.select("tr");
                 for (int i = 2; i < rows.size(); i++) { //first two rows contain headers so skip
                     currentRow = rows.get(i);
-                    if (currentRow.select("td:nth-child(1) > i > a").hasAttr("href")) { // only use games that have a link to a wiki page
+                    currentGameHref = currentRow.select("td:nth-child(1) > i > a").attr("abs:href");
+
+                    if (super.hrefIsAcceptable(currentGameHref)) {
                         currentGame = new Game();
-                        currentGameHref = currentRow.select("td:nth-child(1) > i > a").attr("abs:href");
 
                         currentGame.setName(currentRow.select("td:nth-child(1) > i > a").text());
                         System.out.println(currentGame.getName());
@@ -93,16 +96,7 @@ public class PS4GameTableParser extends AbstractWikipediaTableParser<Game> {
                         currentGame.getAddOns().forEach(addOn -> {
                             System.out.println(addOn.getDescription());
                         });
-//                        System.out.println(currentRow.select("td:nth-child(1)"));
-//                        System.out.println(currentRow.select("td:nth-child(2)"));
-//                        System.out.println(currentRow.select("td:nth-child(3)"));
-//                        System.out.println(currentRow.select("td:nth-child(4)"));
-//                        System.out.println(currentRow.select("td:nth-child(5)"));
-//                        System.out.println(currentRow.select("td:nth-child(6)"));
-//                        System.out.println(currentRow.select("td:nth-child(7)"));
-//                        System.out.println(currentRow.select("td:nth-child(8)"));
-//                        System.out.println(currentRow.select("td:nth-child(9)"));
-//                        System.out.println("Game href: " + currentGameHref);
+
                         System.out.println();
                     }
                 }

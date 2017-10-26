@@ -9,10 +9,10 @@ import java.util.List;
  * @param <T> type to return
  */
 public interface TableParser<T> {
-    
+
     /**
      * Parse the tables
-     * @return 
+     * @return
      */
     public List<T> parseTables();
 

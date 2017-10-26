@@ -1,4 +1,4 @@
-package com.asmith.right.rate.wikipedia.parser.impl;
+package com.asmith.right.rate.wikipedia.table.parser.impl;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

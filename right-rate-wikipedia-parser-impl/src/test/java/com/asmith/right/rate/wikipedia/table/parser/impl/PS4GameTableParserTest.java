@@ -1,4 +1,4 @@
-package com.asmith.right.rate.wikipedia.parser.impl;
+package com.asmith.right.rate.wikipedia.table.parser.impl;
 
 import com.asmith.wikipedia.parser.api.TableParser;
 import org.junit.Test;
@@ -13,15 +13,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContainerConfig.class})
-public class PS4GameListParserTest {
+public class PS4GameTableParserTest {
 
     @Autowired
     @Qualifier("ps4GameTableParser")
     TableParser instance;
 
-    /**
-     * Test of parseTables method, of class PS4GameListParser.
-     */
     @Test
     public void testParseTables() {
         instance.parseTables();
