@@ -42,7 +42,7 @@ public class PS4GameTableParser extends AbstractGameTableParser<Game> {
         String currentGameHref;
 
         for (String tablePage : tableUrls.split(",")) {
-            gameTable = tableRetriever.getTableById(new TableDetails(tablePage,null, tableId));
+            gameTable = tableRetriever.getTableById(new TableDetails(tablePage, tableId));
 
             if (null != gameTable) {
                 Elements rows = gameTable.select("tr");

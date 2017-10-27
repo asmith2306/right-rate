@@ -45,7 +45,7 @@ public class ReviewTableParserTest {
     
     @Test
     public void testParseTables() {
-        instance.setTablePage("blah");
+        instance.setTablePage("https://en.wikipedia.org/wiki/Uncharted_4:_A_Thief%27s_End");
         instance.parseTables();
     }
     

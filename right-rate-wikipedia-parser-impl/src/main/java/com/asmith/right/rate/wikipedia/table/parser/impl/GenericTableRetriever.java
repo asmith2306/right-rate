@@ -20,7 +20,7 @@ public class GenericTableRetriever implements TableRetriever<Element> {
     @Override
     public Element getTableById(TableDetails details) {
         try {
-            System.out.println("Retrieving page: " + details.getTablePage());
+            System.out.println("Retrieving table by Id with details: " + details);
             return Jsoup.connect(details.getTablePage()).maxBodySize(0).get().getElementById(details.getTableIdentifier());
         } catch (IOException ex) {
             Logger.getLogger(AbstractGameTableParser.class.getName()).log(Level.WARNING, null, ex);
@@ -31,8 +31,8 @@ public class GenericTableRetriever implements TableRetriever<Element> {
     @Override
     public List<Element> getTablesByClass(TableDetails details) {
         try {
-            System.out.println("Retrieving page: " + details.getTablePage());
-            return Jsoup.connect(details.getTablePage()).maxBodySize(0).get().getElementsByClass(details.getTableIdentifier());
+            System.out.println("Retrieving table by class with details: " + details);
+            return Jsoup.connect(details.getTablePage()).maxBodySize(0).get().select("table[class=" + details.getTableIdentifier() + "]");
         } catch (IOException ex) {
             Logger.getLogger(AbstractGameTableParser.class.getName()).log(Level.WARNING, null, ex);
             return new ArrayList<>();
