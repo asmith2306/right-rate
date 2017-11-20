@@ -28,6 +28,7 @@ public class PS4XclusivityValueParser implements XclusivityParser<Xclusivity> {
         mappings.put("Console", Xclusivity.MULTIPLAT);
         mappings.put("Timed", Xclusivity.MULTIPLAT);
         mappings.put("No", Xclusivity.MULTIPLAT);
+        mappings.put("TBA", Xclusivity.TBA);
     }
 
 }

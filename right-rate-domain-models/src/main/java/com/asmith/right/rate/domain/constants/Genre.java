@@ -10,7 +10,9 @@ public enum Genre {
     RPG("RPG"), FANTASY("Fantasy"), SCIFI("Sci-Fi"),
     SPORTS("Sports"), SPORT("Sport"),
     SIMULATION("Simulation"), RACING("Racing"), PARTY("Party"),
-    MMO("MMO"), ACTION("Action"), TURNBASED("Turn Based");
+    MMO("MMO"), ACTION("Action"), TURNBASED("Turn Based"),
+    TACTICS("Real Time Tactics");
+    
     private final String description;
 
     Genre(String description) {

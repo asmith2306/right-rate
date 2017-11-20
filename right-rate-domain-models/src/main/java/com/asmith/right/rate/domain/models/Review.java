@@ -86,7 +86,7 @@ public class Review implements Serializable {
 
     @Override
     public String toString() {
-        return "Review{" + "id=" + id + ", score=" + score + ", url=" + url + ", reviewer=" + reviewer + ", snippet=" + snippet + ", game=" + game.getName() + '}';
+        return "Review{" + "id=" + id + ", score=" + score + ", url=" + url + ", reviewer=" + reviewer + ", snippet=" + snippet + "'}'";
     }
 
 }

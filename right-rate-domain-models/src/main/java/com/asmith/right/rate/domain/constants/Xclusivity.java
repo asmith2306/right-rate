@@ -4,7 +4,7 @@ package com.asmith.right.rate.domain.constants;
  * @author asmith
  */
 public enum Xclusivity {
-    PLAYSTATION("PlayStation"), MICROSOFT("Microsoft"), NINTENDO("Nintendo"), PC("PC"), MULTIPLAT("MultiPlat");
+    PLAYSTATION("PlayStation"), MICROSOFT("Microsoft"), NINTENDO("Nintendo"), PC("PC"), MULTIPLAT("MultiPlat"), TBA("TBA");
     private final String description;
 
     private Xclusivity(String description) {

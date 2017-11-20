@@ -8,7 +8,6 @@ import com.asmith.wikipedia.parser.api.XclusivityParser;
 import com.asmith.wikipedia.parser.api.params.TableDetails;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,17 @@ public class PS4GameTableParser extends AbstractGameTableParser<Game> {
                         currentGame = new Game();
 
                         currentGame.setName(currentRow.select("td:nth-child(1) > i > a").text());
+
+                        //add reviews
+                        reviewTableParser.setTablePage(currentGameHref);
+                        currentGame.setReviews(reviewTableParser.parseTables());
+                        if (currentGame.getReviews().isEmpty()) {
+                            continue; // not interested in games that have no reviews
+                        }
                         System.out.println(currentGame.getName());
+                        currentGame.getReviews().forEach(review -> {
+                            System.out.println(review);
+                        });
 
                         //add genres
                         if (currentGame.setGenres(genreParser.parseValue(currentRow.select("td:nth-child(2)").text())).isEmpty()) {

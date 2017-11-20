@@ -40,6 +40,9 @@ public abstract class AbstractGameTableParser<T> implements TableParser<T> {
     @Autowired
     protected MultiValueParser<AddOn> addOnValueParser;
     
+    @Autowired
+    protected ReviewTableParser reviewTableParser;
+    
     /**
      * A games href/link is only acceptable if
      * - the href isn't empty
